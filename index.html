@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dan Mullins</title>
+  <meta name="description" content="Dan Mullins">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz@1,9..144&family=Epilogue:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Epilogue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Full page photo stage ── */
+
+    .photo-stage {
+      position: fixed;
+      inset: 0;
+      background: #1a1917;
+    }
+
+    .photo-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+
+    .photo-slide.active {
+      opacity: 1;
+    }
+
+    /* ── Dark gradient behind content at bottom ── */
+
+    .bottom-gradient {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 55%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.18) 40%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── Content — centred, near bottom ── */
+
+    .content {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 3.5rem;
+      gap: 0.6rem;
+    }
+
+    /* Frosted glass panel */
+    .glass {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 1.5rem 2.5rem 1.6rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 0.5px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .name {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      font-weight: 400;
+    }
+
+    .links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .links a {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 2px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .links a:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ── Controls panel ── */
+
+    .ctrl-panel {
+      flex-direction: row;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .ctrl {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 0.65rem 1.4rem;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 300;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+
+    .ctrl:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .ctrl.pause {
+      border-left: 0.5px solid rgba(255, 255, 255, 0.15);
+      border-right: 0.5px solid rgba(255, 255, 255, 0.15);
+      min-width: 5.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    /* ── Dots ── */
+
+    .dots {
+      position: fixed;
+      top: 1.35rem;
+      left: 1.5rem;
+      z-index: 4;
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: background 0.4s;
+    }
+
+    .dot.active {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* ── Progress bar ── */
+
+    .progress-track {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 5;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.55);
+      width: 0%;
+    }
+
+    /* ── Mobile ── */
+
+    @media (max-width: 480px) {
+      .glass { padding: 1.25rem 1.75rem 1.4rem; margin: 0 1rem; }
+      .links { gap: 1.1rem; }
+      .content { padding-bottom: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="photo-stage" id="stage">
+    <!--
+      ADD YOUR PHOTOS HERE.
+      Put your image files in a folder called "images" next to this file.
+      Add or remove lines as needed — any number of photos works.
+    -->
+    <div class="photo-slide active" style="background-image: url('images/photo-1.jpg');"></div>
+    <div class="photo-slide"        style="background-image: url('images/photo-2.jpg');"></div>
+    <div class="photo-slide"        style="background-image: url('images/photo-3.jpg');"></div>
+    <div class="photo-slide"        style="background-image: url('images/photo-4.jpg');"></div>
+    <div class="photo-slide"        style="background-image: url('images/photo-5.jpg');"></div>
+  </div>
+
+  <div class="bottom-gradient"></div>
+
+  <div class="content">
+
+    <div class="glass">
+      <h1 class="name">Dan Mullins</h1>
+      <nav class="links" aria-label="Social links">
+        <a href="https://www.instagram.com/danmullins/"               target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.linkedin.com/in/dan-mullins-56b86b225/"  target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.thewave.com"                             target="_blank" rel="noopener noreferrer">The Wave</a>
+        <a href="mailto:finbar007@gmail.com">Email</a>
+      </nav>
+    </div>
+
+    <div class="glass ctrl-panel">
+      <button class="ctrl" onclick="prev()" aria-label="Previous photo">&#8592;</button>
+      <button class="ctrl pause" id="pause-btn" onclick="togglePause()">Pause</button>
+      <button class="ctrl" onclick="skip()" aria-label="Next photo">&#8594;</button>
+    </div>
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+
+<script>
+  const slides   = document.querySelectorAll('.photo-slide');
+  const dotsWrap = document.getElementById('dots');
+  const progress = document.getElementById('progress');
+  const pauseBtn = document.getElementById('pause-btn');
+
+  const DURATION = 10000;
+
+  let current   = 0;
+  let paused    = false;
+  let startTime = null;
+  let raf       = null;
+
+  slides.forEach(function(_, i) {
+    var d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsWrap.appendChild(d);
+  });
+  var dots = document.querySelectorAll('.dot');
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function tick(ts) {
+    if (!startTime) startTime = ts;
+    var elapsed = ts - startTime;
+    progress.style.width = Math.min((elapsed / DURATION) * 100, 100) + '%';
+    if (elapsed >= DURATION) {
+      goTo(current + 1);
+      startTime = ts;
+      progress.style.width = '0%';
+    }
+    if (!paused) raf = requestAnimationFrame(tick);
+  }
+
+  function prev() {
+    cancelAnimationFrame(raf);
+    goTo(current - 1);
+    startTime = null;
+    progress.style.width = '0%';
+    if (!paused) raf = requestAnimationFrame(tick);
+  }
+
+  function skip() {
+    cancelAnimationFrame(raf);
+    goTo(current + 1);
+    startTime = null;
+    progress.style.width = '0%';
+    if (!paused) raf = requestAnimationFrame(tick);
+  }
+
+  function togglePause() {
+    paused = !paused;
+    pauseBtn.textContent = paused ? 'Play' : 'Pause';
+    if (!paused) {
+      startTime = null;
+      progress.style.width = '0%';
+      raf = requestAnimationFrame(tick);
+    } else {
+      cancelAnimationFrame(raf);
+    }
+  }
+
+  raf = requestAnimationFrame(tick);
+</script>
+
+</body>
+</html>
