@@ -3,9 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dan Mullins</title>
-  <meta name="description" content="Dan Mullins">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Dan Mullins | Photographer, Videographer & Surf Coach</title>
+  <meta name="description" content="Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide. Available for shoots, coaching and collaborations.">
+  <meta name="keywords" content="Dan Mullins, surf coach, photographer, videographer, The Wave Bristol, ISA surf coach, snowboard photography, surf photography">
+  <meta name="author" content="Dan Mullins">
+
+  <link rel="canonical" href="https://danmullins.com">
+  <meta name="google-site-verification" content="Xzu_0slS78M5UDYm1nMGmb56DBWhRZf5mVLJjhzcLXE">
+
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danmullins.com">
+  <meta property="og:title" content="Dan Mullins | Photographer, Videographer & Surf Coach">
+  <meta property="og:description" content="Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide.">
+  <meta property="og:image" content="https://danmullins.com/images/photo-1.jpg">
+
+  <!-- Twitter/X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dan Mullins | Photographer, Videographer & Surf Coach">
+  <meta name="twitter:description" content="Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol.">
+  <meta name="twitter:image" content="https://danmullins.com/images/photo-1.jpg">
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz@1,9..144&family=Epilogue:wght@300;400&display=swap" rel="stylesheet">
   <style>
@@ -22,8 +40,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Full page photo stage ── */
-
     .photo-stage {
       position: fixed;
       inset: 0;
@@ -39,11 +55,7 @@
       transition: opacity 1.4s ease;
     }
 
-    .photo-slide.active {
-      opacity: 1;
-    }
-
-    /* ── Dark gradient behind content at bottom ── */
+    .photo-slide.active { opacity: 1; }
 
     .bottom-gradient {
       position: fixed;
@@ -51,17 +63,10 @@
       left: 0;
       right: 0;
       height: 55%;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.18) 40%,
-        rgba(0, 0, 0, 0.55) 100%
-      );
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.55) 100%);
       z-index: 2;
       pointer-events: none;
     }
-
-    /* ── Content — centred, near bottom ── */
 
     .content {
       position: fixed;
@@ -77,7 +82,6 @@
       gap: 0.6rem;
     }
 
-    /* Frosted glass panel */
     .glass {
       display: inline-flex;
       flex-direction: column;
@@ -99,7 +103,6 @@
       color: #fff;
       letter-spacing: -0.03em;
       line-height: 1.05;
-      font-weight: 400;
     }
 
     .links {
@@ -124,6 +127,71 @@
     .links a:hover {
       color: #fff;
       border-color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* ── Bio panel ── */
+
+    .bio-panel {
+      padding: 0;
+      overflow: hidden;
+      cursor: pointer;
+      gap: 0;
+      transition: background 0.2s;
+    }
+
+    .bio-panel:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .bio-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .bio-trigger-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 300;
+      font-family: 'Epilogue', sans-serif;
+    }
+
+    .bio-arrow {
+      font-size: 0.6rem;
+      color: rgba(255, 255, 255, 0.45);
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .bio-panel.open .bio-arrow {
+      transform: rotate(180deg);
+    }
+
+    .bio-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 1.75rem;
+    }
+
+    .bio-panel.open .bio-body {
+      max-height: 120px;
+      padding: 0 1.75rem 1.25rem;
+    }
+
+    .bio-text {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+      font-family: 'Epilogue', sans-serif;
+      max-width: 320px;
     }
 
     /* ── Controls panel ── */
@@ -182,9 +250,7 @@
       transition: background 0.4s;
     }
 
-    .dot.active {
-      background: rgba(255, 255, 255, 0.9);
-    }
+    .dot.active { background: rgba(255, 255, 255, 0.9); }
 
     /* ── Progress bar ── */
 
@@ -204,8 +270,6 @@
       width: 0%;
     }
 
-    /* ── Mobile ── */
-
     @media (max-width: 480px) {
       .glass { padding: 1.25rem 1.75rem 1.4rem; margin: 0 1rem; }
       .links { gap: 1.1rem; }
@@ -216,11 +280,6 @@
 <body>
 
   <div class="photo-stage" id="stage">
-    <!--
-      ADD YOUR PHOTOS HERE.
-      Put your image files in a folder called "images" next to this file.
-      Add or remove lines as needed — any number of photos works.
-    -->
     <div class="photo-slide active" style="background-image: url('images/photo-1.jpg');"></div>
     <div class="photo-slide"        style="background-image: url('images/photo-2.jpg');"></div>
     <div class="photo-slide"        style="background-image: url('images/photo-3.jpg');"></div>
@@ -240,6 +299,16 @@
         <a href="https://www.thewave.com"                             target="_blank" rel="noopener noreferrer">The Wave</a>
         <a href="mailto:finbar007@gmail.com">Email</a>
       </nav>
+    </div>
+
+    <div class="glass bio-panel" id="bio-panel" onclick="toggleBio()">
+      <div class="bio-trigger">
+        <span class="bio-trigger-label">About</span>
+        <span class="bio-arrow">&#9650;</span>
+      </div>
+      <div class="bio-body">
+        <p class="bio-text">Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide. Available for shoots, coaching and collaborations.</p>
+      </div>
     </div>
 
     <div class="glass ctrl-panel">
@@ -263,11 +332,7 @@
   const pauseBtn = document.getElementById('pause-btn');
 
   const DURATION = 10000;
-
-  let current   = 0;
-  let paused    = false;
-  let startTime = null;
-  let raf       = null;
+  let current = 0, paused = false, startTime = null, raf = null;
 
   slides.forEach(function(_, i) {
     var d = document.createElement('div');
@@ -322,6 +387,10 @@
     } else {
       cancelAnimationFrame(raf);
     }
+  }
+
+  function toggleBio() {
+    document.getElementById('bio-panel').classList.toggle('open');
   }
 
   raf = requestAnimationFrame(tick);
