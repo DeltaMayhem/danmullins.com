@@ -536,6 +536,19 @@
     }
   });
 
+  // Preload all images so transitions are instant
+  function preloadImages() {
+    slides.forEach(function(slide) {
+      var bg = slide.style.backgroundImage;
+      var match = bg.match(/url\(['"]?(.+?)['"]?\)/);
+      if (match && match[1]) {
+        var img = new Image();
+        img.src = match[1];
+      }
+    });
+  }
+  preloadImages();
+
   raf = requestAnimationFrame(tick);
 </script>
 
