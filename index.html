@@ -11,6 +11,9 @@
   <link rel="canonical" href="https://danmullins.com">
   <meta name="google-site-verification" content="Xzu_0slS78M5UDYm1nMGmb56DBWhRZf5mVLJjhzcLXE">
 
+  <!-- Preload first hero image so it appears as fast as possible -->
+  <link rel="preload" as="image" href="images/the-wave-bristol-inside-barrel-underwater-blue.jpg">
+
   <!-- Person schema -->
   <script type="application/ld+json">
   {
@@ -51,11 +54,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Epilogue:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       height: 100%;
@@ -64,47 +63,28 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .photo-stage {
-      position: fixed;
-      inset: 0;
-      background: #1a1917;
-    }
+    .photo-stage { position: fixed; inset: 0; background: #1a1917; touch-action: pan-y; }
 
     .photo-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.4s ease;
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0; transition: opacity 1.4s ease;
     }
-
     .photo-slide.active { opacity: 1; }
 
-    /* ── Content wrapper ── */
-
     .content {
-      position: fixed;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
+      position: fixed; z-index: 3;
+      display: flex; flex-direction: column;
       gap: 0.5rem;
-      /* default: mobile - centred bottom */
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       align-items: center;
       text-align: center;
       padding-bottom: 2rem;
     }
 
-    /* ── Frosted glass base ── */
-
     .glass {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.9rem;
+      display: inline-flex; flex-direction: column;
+      align-items: center; gap: 0.9rem;
       padding: 1.25rem 2rem 1.3rem;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.1);
@@ -112,8 +92,6 @@
       -webkit-backdrop-filter: blur(18px);
       border: 0.5px solid rgba(255, 255, 255, 0.18);
     }
-
-    /* ── Name ── */
 
     .name {
       font-family: 'Cormorant Garamond', serif;
@@ -124,15 +102,7 @@
       line-height: 1.05;
     }
 
-    /* ── Links ── */
-
-    .links {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
+    .links { display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center; }
     .links a {
       font-size: 0.7rem;
       color: rgba(255, 255, 255, 0.75);
@@ -144,105 +114,26 @@
       text-transform: uppercase;
       transition: color 0.2s, border-color 0.2s;
     }
+    .links a:hover { color: #fff; border-color: rgba(255, 255, 255, 0.75); }
 
-    .links a:hover {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.75);
-    }
-
-    /* ── Bio panel ── */
-
-    .bio-panel {
-      padding: 0;
-      overflow: hidden;
-      cursor: pointer;
-      gap: 0;
-      transition: background 0.2s;
-      width: 70%;
-    }
-
-    .bio-panel:hover {
-      background: rgba(255, 255, 255, 0.14);
-    }
-
-    .bio-trigger {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 1.25rem;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .bio-trigger-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 300;
-    }
-
-    .bio-arrow {
-      font-size: 0.55rem;
-      color: rgba(255, 255, 255, 0.5);
-      transition: transform 0.3s ease;
-      display: inline-block;
-    }
-
-    .bio-panel.open .bio-arrow {
-      transform: rotate(180deg);
-    }
-
-    .bio-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-      padding: 0 1.25rem;
-    }
-
-    .bio-panel.open .bio-body {
-      max-height: 260px;
-      padding: 0 1.25rem 1rem;
-    }
-
-    .bio-text {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.75);
-      font-weight: 300;
-      line-height: 1.6;
-      letter-spacing: 0.01em;
-    }
-
-    /* ── Control panel ── */
-
+    /* Control panel */
     .ctrl-panel {
-      flex-direction: row;
-      gap: 0;
-      padding: 0;
+      flex-direction: row; gap: 0; padding: 0;
       overflow: hidden;
       width: 49%;
       justify-content: center;
     }
-
     .ctrl {
-      background: transparent;
-      border: none;
+      background: transparent; border: none;
       color: rgba(255, 255, 255, 0.75);
       padding: 0.4rem 0.5rem;
       font-family: 'Epilogue', sans-serif;
       font-size: 0.78rem;
-      cursor: pointer;
-      font-weight: 300;
+      cursor: pointer; font-weight: 300;
       transition: background 0.15s, color 0.15s;
-      line-height: 1;
-      flex: 1;
+      line-height: 1; flex: 1;
     }
-
-    .ctrl:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-    }
-
+    .ctrl:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
     .ctrl.pause {
       border-left: 0.5px solid rgba(255, 255, 255, 0.15);
       border-right: 0.5px solid rgba(255, 255, 255, 0.15);
@@ -251,141 +142,45 @@
       text-transform: uppercase;
     }
 
-    /* ── Dots ── */
-
     .dots {
-      position: fixed;
-      top: 1.25rem;
-      left: 1.5rem;
-      z-index: 4;
-      display: flex;
-      gap: 7px;
-      align-items: center;
+      position: fixed; top: 1.25rem; left: 1.5rem; z-index: 4;
+      display: flex; gap: 7px; align-items: center;
     }
-
     .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
+      width: 5px; height: 5px; border-radius: 50%;
       background: rgba(255, 255, 255, 0.3);
       transition: background 0.4s;
     }
-
     .dot.active { background: rgba(255, 255, 255, 0.9); }
 
-    /* ── Progress bar ── */
-
     .progress-track {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.1);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 2px; background: rgba(255, 255, 255, 0.1);
       z-index: 5;
     }
+    .progress-fill { height: 100%; background: rgba(255, 255, 255, 0.55); width: 0%; }
 
-    .progress-fill {
-      height: 100%;
-      background: rgba(255, 255, 255, 0.55);
-      width: 0%;
-    }
-
-    /* ─────────────────────────────────
-       LAPTOP / DESKTOP — 1000px and up
-       ───────────────────────────────── */
-
+    /* Laptop / Desktop */
     @media (min-width: 1000px) {
-
       .content {
-        left: 5%;
-        right: auto;
-        bottom: 5%;
+        left: 5%; right: auto; bottom: 5%;
         padding-bottom: 0;
         align-items: flex-start;
         text-align: left;
         gap: 0.5rem;
-        /* fix container width so panels can share it */
         width: max-content;
       }
+      .glass { align-items: flex-start; gap: 1rem; }
+      .glass:first-child { padding: 1.5rem 2.3rem 1.6rem; }
+      .name { font-size: 2.6rem; letter-spacing: -0.01em; }
+      .links { justify-content: flex-start; gap: 1.6rem; }
+      .links a { font-size: 0.74rem; }
 
-      .glass {
-        align-items: flex-start;
-        gap: 1rem;
-      }
+      .ctrl-panel { width: auto; justify-content: flex-start; align-self: flex-start; }
+      .ctrl { flex: none; padding: 0.45rem 1.1rem; font-size: 0.82rem; }
+      .ctrl.pause { font-size: 0.58rem; min-width: 4.2rem; }
 
-      /* Name panel sets the width; we let it size to content */
-      .glass:first-child {
-        padding: 1.5rem 2.3rem 1.6rem;
-      }
-
-      .name {
-        font-size: 2.6rem;
-        letter-spacing: -0.01em;
-      }
-
-      .links {
-        justify-content: flex-start;
-        gap: 1.6rem;
-      }
-
-      .links a {
-        font-size: 0.74rem;
-      }
-
-      /* About panel: match the name panel width by stretching to the content container */
-      .bio-panel {
-        width: 100%;
-        align-self: stretch;
-      }
-
-      .bio-trigger {
-        justify-content: flex-start;
-        padding: 0.5rem 2.3rem;
-      }
-
-      .bio-trigger-label {
-        font-size: 0.65rem;
-      }
-
-      .bio-body {
-        padding: 0 2.3rem;
-      }
-
-      .bio-panel.open .bio-body {
-        padding: 0 2.3rem 1.3rem;
-      }
-
-      .bio-text {
-        font-size: 0.88rem;
-        line-height: 1.65;
-        max-width: 100%;
-      }
-
-      /* Control panel: narrow, left-aligned */
-      .ctrl-panel {
-        width: auto;
-        justify-content: flex-start;
-        align-self: flex-start;
-      }
-
-      .ctrl {
-        flex: none;
-        padding: 0.45rem 1.1rem;
-        font-size: 0.82rem;
-      }
-
-      .ctrl.pause {
-        font-size: 0.58rem;
-        min-width: 4.2rem;
-      }
-
-      /* Dots move to top-right on laptop */
-      .dots {
-        left: auto;
-        right: 1.75rem;
-        top: 1.5rem;
-      }
+      .dots { left: auto; right: 1.75rem; top: 1.5rem; }
     }
   </style>
 </head>
@@ -421,19 +216,9 @@
       <nav class="links" aria-label="Social links">
         <a href="https://www.instagram.com/danmullins/"               target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.linkedin.com/in/dan-mullins-56b86b225/"  target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.thewave.com"                             target="_blank" rel="noopener noreferrer">The Wave</a>
+        <a href="about.html">About</a>
         <a href="mailto:finbar007@gmail.com">Email</a>
       </nav>
-    </div>
-
-    <div class="glass bio-panel" id="bio-panel" onclick="toggleBio()">
-      <div class="bio-trigger">
-        <span class="bio-trigger-label">About</span>
-        <span class="bio-arrow">&#9650;</span>
-      </div>
-      <div class="bio-body">
-        <p class="bio-text">Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide. Available for shoots, coaching and collaborations.</p>
-      </div>
     </div>
 
     <div class="glass ctrl-panel">
@@ -455,6 +240,7 @@
   const dotsWrap = document.getElementById('dots');
   const progress = document.getElementById('progress');
   const pauseBtn = document.getElementById('pause-btn');
+  const stage    = document.getElementById('stage');
 
   const DURATION = 10000;
   let current = 0, paused = false, startTime = null, raf = null;
@@ -514,40 +300,50 @@
     }
   }
 
-  function toggleBio() {
-    document.getElementById('bio-panel').classList.toggle('open');
-  }
-
   // Keyboard controls
   document.addEventListener('keydown', function(e) {
-    // Ignore if user is typing in an input or has modifier keys held
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
-
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      prev();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      skip();
-    } else if (e.key === ' ' || e.code === 'Space') {
-      e.preventDefault();
-      togglePause();
-    }
+    if (e.key === 'ArrowLeft')       { e.preventDefault(); prev(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); skip(); }
+    else if (e.key === ' ' || e.code === 'Space') { e.preventDefault(); togglePause(); }
   });
 
-  // Preload all images so transitions are instant
-  function preloadImages() {
-    slides.forEach(function(slide) {
-      var bg = slide.style.backgroundImage;
-      var match = bg.match(/url\(['"]?(.+?)['"]?\)/);
-      if (match && match[1]) {
-        var img = new Image();
-        img.src = match[1];
-      }
-    });
+  // Swipe controls
+  var touchStartX = 0;
+  var touchStartY = 0;
+  stage.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  stage.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    // ignore if vertical swipe (probably scroll/pull) or tiny movement
+    if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0) skip();
+    else        prev();
+  }, { passive: true });
+
+  // Sequential preload: load first image (browser already started), then queue rest
+  function preloadSequentially(index) {
+    if (index >= slides.length) return;
+    var bg = slides[index].style.backgroundImage;
+    var match = bg.match(/url\(['"]?(.+?)['"]?\)/);
+    if (match && match[1]) {
+      var img = new Image();
+      img.onload  = function() { preloadSequentially(index + 1); };
+      img.onerror = function() { preloadSequentially(index + 1); };
+      img.src = match[1];
+    } else {
+      preloadSequentially(index + 1);
+    }
   }
-  preloadImages();
+  // Wait until first image is on screen, then start preloading the rest
+  window.addEventListener('load', function() {
+    preloadSequentially(1);
+  });
 
   raf = requestAnimationFrame(tick);
 </script>
