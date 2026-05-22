@@ -18,7 +18,7 @@
     "@type": "Person",
     "name": "Dan Mullins",
     "url": "https://danmullins.com",
-    "image": "https://danmullins.com/images/photo-1.jpg",
+    "image": "https://danmullins.com/images/uluwatu-bali-indonesia-surfer-barrel-offshore-spray.jpg",
     "jobTitle": ["Photographer", "Videographer", "Surf Coach"],
     "description": "Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide.",
     "worksFor": {
@@ -39,13 +39,13 @@
   <meta property="og:url" content="https://danmullins.com">
   <meta property="og:title" content="Dan Mullins | Photographer, Videographer & Surf Coach">
   <meta property="og:description" content="Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol. Work published across leading surf and snowboard titles worldwide.">
-  <meta property="og:image" content="https://danmullins.com/images/photo-1.jpg">
+  <meta property="og:image" content="https://danmullins.com/images/uluwatu-bali-indonesia-surfer-barrel-offshore-spray.jpg">
 
   <!-- Twitter/X card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dan Mullins | Photographer, Videographer & Surf Coach">
   <meta name="twitter:description" content="Professional photographer, videographer and ISA Level 2 surf coach. Head coach at The Wave Bristol.">
-  <meta name="twitter:image" content="https://danmullins.com/images/photo-1.jpg">
+  <meta name="twitter:image" content="https://danmullins.com/images/uluwatu-bali-indonesia-surfer-barrel-offshore-spray.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,7 +150,7 @@
       border-color: rgba(255, 255, 255, 0.75);
     }
 
-    /* ── Bio panel (mobile defaults) ── */
+    /* ── Bio panel ── */
 
     .bio-panel {
       padding: 0;
@@ -158,7 +158,7 @@
       cursor: pointer;
       gap: 0;
       transition: background 0.2s;
-      width: 65%;
+      width: 70%;
     }
 
     .bio-panel:hover {
@@ -169,7 +169,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.45rem 1.25rem;
+      padding: 0.4rem 1.25rem;
       width: 100%;
       justify-content: center;
     }
@@ -201,7 +201,7 @@
     }
 
     .bio-panel.open .bio-body {
-      max-height: 240px;
+      max-height: 260px;
       padding: 0 1.25rem 1rem;
     }
 
@@ -213,14 +213,14 @@
       letter-spacing: 0.01em;
     }
 
-    /* ── Control panel (mobile defaults) ── */
+    /* ── Control panel ── */
 
     .ctrl-panel {
       flex-direction: row;
       gap: 0;
       padding: 0;
       overflow: hidden;
-      width: 65%;
+      width: 49%;
       justify-content: center;
     }
 
@@ -228,9 +228,9 @@
       background: transparent;
       border: none;
       color: rgba(255, 255, 255, 0.75);
-      padding: 0.45rem 1rem;
+      padding: 0.4rem 0.5rem;
       font-family: 'Epilogue', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       cursor: pointer;
       font-weight: 300;
       transition: background 0.15s, color 0.15s;
@@ -246,7 +246,7 @@
     .ctrl.pause {
       border-left: 0.5px solid rgba(255, 255, 255, 0.15);
       border-right: 0.5px solid rgba(255, 255, 255, 0.15);
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       letter-spacing: 0.09em;
       text-transform: uppercase;
     }
@@ -298,24 +298,29 @@
     @media (min-width: 1000px) {
 
       .content {
-        /* anchor bottom-left, 5% margins */
         left: 5%;
         right: auto;
         bottom: 5%;
         padding-bottom: 0;
         align-items: flex-start;
         text-align: left;
-        gap: 0.6rem;
+        gap: 0.5rem;
+        /* fix container width so panels can share it */
+        width: max-content;
       }
 
       .glass {
         align-items: flex-start;
-        padding: 1.6rem 2.5rem 1.7rem;
-        gap: 1.1rem;
+        gap: 1rem;
+      }
+
+      /* Name panel sets the width; we let it size to content */
+      .glass:first-child {
+        padding: 1.5rem 2.3rem 1.6rem;
       }
 
       .name {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
         letter-spacing: -0.01em;
       }
 
@@ -328,7 +333,7 @@
         font-size: 0.74rem;
       }
 
-      /* About panel matches name panel width on laptop */
+      /* About panel: match the name panel width by stretching to the content container */
       .bio-panel {
         width: 100%;
         align-self: stretch;
@@ -336,7 +341,7 @@
 
       .bio-trigger {
         justify-content: flex-start;
-        padding: 0.7rem 2.5rem;
+        padding: 0.5rem 2.3rem;
       }
 
       .bio-trigger-label {
@@ -344,20 +349,20 @@
       }
 
       .bio-body {
-        padding: 0 2.5rem;
+        padding: 0 2.3rem;
       }
 
       .bio-panel.open .bio-body {
-        padding: 0 2.5rem 1.4rem;
+        padding: 0 2.3rem 1.3rem;
       }
 
       .bio-text {
-        font-size: 0.78rem;
+        font-size: 0.88rem;
         line-height: 1.65;
-        max-width: 360px;
+        max-width: 100%;
       }
 
-      /* Control panel: narrower, left-aligned */
+      /* Control panel: narrow, left-aligned */
       .ctrl-panel {
         width: auto;
         justify-content: flex-start;
@@ -366,13 +371,13 @@
 
       .ctrl {
         flex: none;
-        padding: 0.6rem 1.25rem;
-        font-size: 0.85rem;
+        padding: 0.45rem 1.1rem;
+        font-size: 0.82rem;
       }
 
       .ctrl.pause {
-        font-size: 0.6rem;
-        min-width: 4.5rem;
+        font-size: 0.58rem;
+        min-width: 4.2rem;
       }
 
       /* Dots move to top-right on laptop */
@@ -387,11 +392,26 @@
 <body>
 
   <div class="photo-stage" id="stage" role="img" aria-label="Photography by Dan Mullins, including surf and snowboard imagery">
-    <div class="photo-slide active" style="background-image: url('images/photo-1.jpg');" role="img" aria-label="Surf or snowboard photography by Dan Mullins"></div>
-    <div class="photo-slide"        style="background-image: url('images/photo-2.jpg');" role="img" aria-label="Surf or snowboard photography by Dan Mullins"></div>
-    <div class="photo-slide"        style="background-image: url('images/photo-3.jpg');" role="img" aria-label="Surf or snowboard photography by Dan Mullins"></div>
-    <div class="photo-slide"        style="background-image: url('images/photo-4.jpg');" role="img" aria-label="Surf or snowboard photography by Dan Mullins"></div>
-    <div class="photo-slide"        style="background-image: url('images/photo-5.jpg');" role="img" aria-label="Surf or snowboard photography by Dan Mullins"></div>
+    <div class="photo-slide active" style="background-image: url('images/the-wave-bristol-inside-barrel-underwater-blue.jpg');" role="img" aria-label="An underwater view from inside a breaking wave at The Wave, Bristol, showing the curling barrel in deep blue tones."></div>
+    <div class="photo-slide"        style="background-image: url('images/arugam-bay-sri-lanka-aerial-tropical-beach-converging-waves.jpg');" role="img" aria-label="Aerial view of Arugam Bay, Sri Lanka, where two sets of whitewater waves converge against a palm-fringed sandy shore."></div>
+    <div class="photo-slide"        style="background-image: url('images/mayrhofen-zillertal-austria-summit-tent-star-trails-valley-lights.jpg');" role="img" aria-label="A yellow North Face tent on a snowy summit above Mayrhofen in the Zillertal, with circular star trails overhead and the lit-up valley town glowing far below."></div>
+    <div class="photo-slide"        style="background-image: url('images/dan-mullins-adventure-photographer-olperer-hutte-hintertux-zillertal-austria-alpine-hut-headlamp-starry-night.jpg');" role="img" aria-label="Adventure photographer Dan Mullins, with a headlamp, stands beside the Olperer Hutte in Hintertux, Zillertal, beneath a star-filled alpine sky."></div>
+    <div class="photo-slide"        style="background-image: url('images/sri-lanka-matara-surfer-stupa-palms.jpg');" role="img" aria-label="A surfer rides a small wave at Matara, Sri Lanka, below a white Buddhist stupa and dense palm trees."></div>
+    <div class="photo-slide"        style="background-image: url('images/uluwatu-bali-indonesia-surfer-barrel-offshore-spray.jpg');" role="img" aria-label="A surfer rides inside a turquoise barrel at Uluwatu, Bali, with offshore wind blowing a long plume of spray off the lip."></div>
+    <div class="photo-slide"        style="background-image: url('images/roland-morley-brown-austria-alpine-snowboarder-vast-mountain-vista.jpg');" role="img" aria-label="Roland Morley-Brown descends a vast snowy ridge in the Austrian Alps, with jagged peaks rising under a deep blue sky."></div>
+    <div class="photo-slide"        style="background-image: url('images/tini-gruber-austria-snowboarder-hiking-capita-board-flare.jpg');" role="img" aria-label="Tini Gruber hikes uphill through deep Austrian snow carrying a Capita snowboard, backlit with strong lens flare across the frame."></div>
+    <div class="photo-slide"        style="background-image: url('images/roland-morley-brown-zillertal-austria-snowboarder-sunset-ridge-camp.jpg');" role="img" aria-label="Roland Morley-Brown hikes across a snowy Zillertal ridge in an orange jacket, heading towards a North Face expedition tent at golden hour."></div>
+    <div class="photo-slide"        style="background-image: url('images/ericeira-portugal-surfer-rocky-coastline-small-wave.jpg');" role="img" aria-label="A surfer rides a small wave along the rugged rocky coastline at Ericeira, Portugal, arms raised mid-ride."></div>
+    <div class="photo-slide"        style="background-image: url('images/stillup-speicher-zillertal-austria-star-trails-mountain-lake-rocks.jpg');" role="img" aria-label="Long-exposure star trails curve above the Stillup Speicher reservoir in the Zillertal, with rocks scattered across the still lake foreground."></div>
+    <div class="photo-slide"        style="background-image: url('images/mirissa-sri-lanka-tropical-palm-shoreline-from-water.jpg');" role="img" aria-label="The palm-lined tropical shoreline at Mirissa, Sri Lanka, photographed from the surface of the calm ocean."></div>
+    <div class="photo-slide"        style="background-image: url('images/the-wave-bristol-crashing-blue-wave-water-level.jpg');" role="img" aria-label="A close, water-level view of a deep blue wave crashing with bright whitewater spray at The Wave, Bristol."></div>
+    <div class="photo-slide"        style="background-image: url('images/the-wave-bristol-clear-wave-bokeh-sunlight.jpg');" role="img" aria-label="A small, crystal-clear wave breaking in bright sunlight at The Wave, Bristol, surrounded by sparkling water bokeh."></div>
+    <div class="photo-slide"        style="background-image: url('images/the-wave-bristol-wavegarden-aerial-surf-pool.jpg');" role="img" aria-label="Aerial view of the Wavegarden surf pool at The Wave, Bristol, with a surfer riding a clean peeling wave beside the central pier."></div>
+    <div class="photo-slide"        style="background-image: url('images/the-wave-bristol-twilight-perfect-wave-abstract-wave-sunset.jpg');" role="img" aria-label="A long-exposure twilight image of a peeling wave at The Wave, Bristol, water dissolving into smooth blue and peach tones at sunset."></div>
+    <div class="photo-slide"        style="background-image: url('images/kanoa-igarashi-the-wave-bristol-surfer-wetsuit-turquoise-barrel.jpg');" role="img" aria-label="Kanoa Igarashi crouching in a clean turquoise barrel at The Wave, Bristol, wearing a black wetsuit."></div>
+    <div class="photo-slide"        style="background-image: url('images/sri-lanka-aerial-sandy-beach-cliffs-turquoise.jpg');" role="img" aria-label="A top-down aerial view of a golden sandy beach in Sri Lanka meeting turquoise water alongside pale rocky cliffs."></div>
+    <div class="photo-slide"        style="background-image: url('images/mirissa-sri-lanka-small-glassy-green-wave-pastel-sky.jpg');" role="img" aria-label="A small, glassy green wave peeling at Mirissa, Sri Lanka, under a soft pastel morning sky."></div>
+    <div class="photo-slide"        style="background-image: url('images/steve-gruber-mayrhofen-austria-snowboarder-powder-spray-steep-slope.jpg');" role="img" aria-label="Steve Gruber carves down a steep powder face near Mayrhofen, kicking up a large plume of backlit snow spray."></div>
   </div>
 
   <div class="content">
@@ -497,6 +517,24 @@
   function toggleBio() {
     document.getElementById('bio-panel').classList.toggle('open');
   }
+
+  // Keyboard controls
+  document.addEventListener('keydown', function(e) {
+    // Ignore if user is typing in an input or has modifier keys held
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prev();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      skip();
+    } else if (e.key === ' ' || e.code === 'Space') {
+      e.preventDefault();
+      togglePause();
+    }
+  });
 
   raf = requestAnimationFrame(tick);
 </script>
