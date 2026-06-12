@@ -21,7 +21,7 @@
     --mute:rgba(240,237,230,.8);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;background:var(--black)}
   body{background:var(--black);color:var(--paper);font-family:'Inter',sans-serif;font-weight:400;overflow-x:hidden}
   ::selection{background:var(--gold);color:var(--black)}
 
@@ -52,7 +52,7 @@
   .layer::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,12,14,.3),transparent 35%,transparent 68%,rgba(12,12,14,.6))}
   .layer-snow{clip-path:inset(0 50% 0 0);will-change:clip-path;z-index:2}
   .divider{position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(240,237,230,.85);z-index:4;will-change:left}
-  .divider::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border:1px solid rgba(240,237,230,.85);border-radius:50%;background:rgba(12,12,14,.35);backdrop-filter:blur(6px)}
+  .divider::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);width:11px;height:11px;border:1px solid rgba(240,237,230,.9);background:rgba(12,12,14,.55)}
 
   .hero-title{position:absolute;left:0;right:0;top:18%;text-align:center;z-index:5;pointer-events:none}
   .hero-title h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.6rem,7vw,5.5rem);letter-spacing:.06em;text-shadow:0 2px 30px rgba(0,0,0,.5)}
@@ -64,12 +64,6 @@
   .label-snow{left:6%}
   .label-surf{right:6%;text-align:right}
 
-  /* ---------- scroll cue: centred, high contrast, fades after scroll ---------- */
-  .scroll-cue{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:.4rem;pointer-events:none;transition:opacity .6s}
-  .scroll-cue .txt{font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(240,237,230,.95);text-shadow:0 1px 10px rgba(0,0,0,.8)}
-  .scroll-cue .chev{width:14px;height:14px;border-right:2px solid var(--paper);border-bottom:2px solid var(--paper);transform:rotate(45deg);animation:dip 2s ease-in-out infinite;filter:drop-shadow(0 1px 6px rgba(0,0,0,.8))}
-  @keyframes dip{0%,100%{transform:rotate(45deg) translate(0,0);opacity:1}50%{transform:rotate(45deg) translate(5px,5px);opacity:.4}}
-  .scroll-cue.hidden{opacity:0}
 
   /* ---------- chapters ---------- */
   .chapter{position:relative;padding:4vh 0 14vh}
@@ -103,7 +97,6 @@
   .credits .fineprint{margin-top:4rem;font-size:.66rem;letter-spacing:.22em;color:rgba(240,237,230,.6)}
 
   @media (prefers-reduced-motion:reduce){
-    .scroll-cue .chev{animation:none}
     .reveal{opacity:1;transform:none;transition:none}
     .plate img{top:0;height:100%}
   }
@@ -143,8 +136,6 @@
     <div class="name">Bristol to Sri Lanka</div>
   </div>
 
-  <div class="scroll-cue" id="scrollCue">
-    <div class="txt">Scroll</div>
     <div class="chev"></div>
   </div>
 </header>
@@ -254,12 +245,10 @@
   })();
 
   /* ----- scroll cue + topbar + progress ----- */
-  const cue=document.getElementById('scrollCue');
   const topbar=document.getElementById('topbar');
   const progress=document.getElementById('progress');
   function onScroll(){
     const y=window.scrollY;
-    cue.classList.toggle('hidden',y>40);
     topbar.classList.toggle('scrolled',y>60);
     const max=document.documentElement.scrollHeight-window.innerHeight;
     progress.style.width=(max>0?(y/max*100):0)+'%';
